@@ -1,0 +1,465 @@
+[
+  {
+    "id": "b763e7488afdf16e",
+    "type": "subflow",
+    "name": "zigbee2tasmota",
+    "info": "",
+    "category": "",
+    "in": [],
+    "out": [
+      {
+        "x": 690,
+        "y": 140,
+        "wires": [
+          {
+            "id": "6c01d1b2f576cdd9",
+            "port": 0
+          }
+        ]
+      }
+    ],
+    "env": [
+      {
+        "name": "name",
+        "type": "str",
+        "value": ""
+      }
+    ],
+    "meta": {},
+    "color": "#DDAA99"
+  },
+  {
+    "id": "9275534a086c5c21",
+    "type": "mqtt in",
+    "z": "b763e7488afdf16e",
+    "name": "",
+    "topic": "enter-your-mqtt-topic",
+    "qos": "2",
+    "datatype": "json",
+    "broker": "78c65a9f.5234d4",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "x": 240,
+    "y": 140,
+    "wires": [
+      [
+        "6c01d1b2f576cdd9"
+      ]
+    ]
+  },
+  {
+    "id": "6c01d1b2f576cdd9",
+    "type": "function",
+    "z": "b763e7488afdf16e",
+    "name": "filterForFriendlyName",
+    "func": "const data = Object.values(msg.payload.ZbReceived).find(data => {\n    return data.Name === env.get(\"name\")\n})\n\nif(data) {\n msg.payload = data\n return msg;    \n}\n",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 510,
+    "y": 140,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "78c65a9f.5234d4",
+    "type": "mqtt-broker",
+    "name": "",
+    "broker": "",
+    "port": "",
+    "clientid": "",
+    "usetls": false,
+    "compatmode": false,
+    "protocolVersion": 4,
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": ""
+  },
+  {
+    "id": "ff9b25b67ca95e0c",
+    "type": "subflow",
+    "name": "4Way Switch [TS004F]",
+    "info": "",
+    "category": "input",
+    "in": [],
+    "out": [
+      {
+        "x": 1000,
+        "y": 100,
+        "wires": [
+          {
+            "id": "ce728b638ad7b1d2",
+            "port": "2"
+          }
+        ]
+      },
+      {
+        "x": 1000,
+        "y": 180,
+        "wires": [
+          {
+            "id": "ce728b638ad7b1d2",
+            "port": 0
+          }
+        ]
+      },
+      {
+        "x": 1000,
+        "y": 260,
+        "wires": [
+          {
+            "id": "ce728b638ad7b1d2",
+            "port": 3
+          }
+        ]
+      },
+      {
+        "x": 1000,
+        "y": 340,
+        "wires": [
+          {
+            "id": "ce728b638ad7b1d2",
+            "port": 1
+          }
+        ]
+      },
+      {
+        "x": 1000,
+        "y": 420,
+        "wires": [
+          {
+            "id": "ce728b638ad7b1d2",
+            "port": 4
+          }
+        ]
+      },
+      {
+        "x": 1000,
+        "y": 500,
+        "wires": [
+          {
+            "id": "ce728b638ad7b1d2",
+            "port": 5
+          }
+        ]
+      },
+      {
+        "x": 1000,
+        "y": 560,
+        "wires": [
+          {
+            "id": "ce728b638ad7b1d2",
+            "port": 6
+          }
+        ]
+      },
+      {
+        "x": 1400,
+        "y": 500,
+        "wires": [
+          {
+            "id": "d90f6ea3b1d974b0",
+            "port": 0
+          },
+          {
+            "id": "6bb1ea7490ecb4e1",
+            "port": 0
+          }
+        ]
+      },
+      {
+        "x": 1400,
+        "y": 620,
+        "wires": [
+          {
+            "id": "0fb302ecb4884327",
+            "port": 0
+          },
+          {
+            "id": "dfe1be2ba7684014",
+            "port": 0
+          }
+        ]
+      },
+      {
+        "x": 1000,
+        "y": 740,
+        "wires": [
+          {
+            "id": "780fc5fe637bef85",
+            "port": 0
+          }
+        ]
+      }
+    ],
+    "env": [
+      {
+        "name": "name",
+        "type": "str",
+        "value": ""
+      }
+    ],
+    "meta": {},
+    "color": "#D8BFD8",
+    "outputLabels": [
+      "button1",
+      "button2",
+      "button3",
+      "button4",
+      "button2 long press start",
+      "button4 long press start",
+      "button2 or 4 released after long press",
+      "button2 is pressing",
+      "button4 is pressing",
+      "debug-log"
+    ],
+    "icon": "node-red-dashboard/ui_button.png"
+  },
+  {
+    "id": "780fc5fe637bef85",
+    "type": "subflow:b763e7488afdf16e",
+    "z": "ff9b25b67ca95e0c",
+    "name": "",
+    "env": [
+      {
+        "name": "name",
+        "value": "name",
+        "type": "env"
+      }
+    ],
+    "x": 380,
+    "y": 380,
+    "wires": [
+      [
+        "ce728b638ad7b1d2"
+      ]
+    ]
+  },
+  {
+    "id": "ce728b638ad7b1d2",
+    "type": "switch",
+    "z": "ff9b25b67ca95e0c",
+    "name": "",
+    "property": "payload",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "hask",
+        "v": "DimmerStepUp",
+        "vt": "str"
+      },
+      {
+        "t": "hask",
+        "v": "DimmerStepDown",
+        "vt": "str"
+      },
+      {
+        "t": "hask",
+        "v": "0006!01",
+        "vt": "str"
+      },
+      {
+        "t": "hask",
+        "v": "0006!00",
+        "vt": "str"
+      },
+      {
+        "t": "jsonata_exp",
+        "v": "payload.DimmerMove = 0",
+        "vt": "jsonata"
+      },
+      {
+        "t": "jsonata_exp",
+        "v": "payload.DimmerMove = 1",
+        "vt": "jsonata"
+      },
+      {
+        "t": "hask",
+        "v": "DimmerStop",
+        "vt": "str"
+      }
+    ],
+    "checkall": "false",
+    "repair": false,
+    "outputs": 7,
+    "x": 610,
+    "y": 380,
+    "wires": [
+      [],
+      [],
+      [],
+      [],
+      [
+        "d90f6ea3b1d974b0"
+      ],
+      [
+        "0fb302ecb4884327"
+      ],
+      [
+        "6bb1ea7490ecb4e1",
+        "dfe1be2ba7684014"
+      ]
+    ]
+  },
+  {
+    "id": "d90f6ea3b1d974b0",
+    "type": "change",
+    "z": "ff9b25b67ca95e0c",
+    "name": "true",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "true",
+        "tot": "bool"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1230,
+    "y": 460,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "6bb1ea7490ecb4e1",
+    "type": "change",
+    "z": "ff9b25b67ca95e0c",
+    "name": "false",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "false",
+        "tot": "bool"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1230,
+    "y": 520,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "0fb302ecb4884327",
+    "type": "change",
+    "z": "ff9b25b67ca95e0c",
+    "name": "true",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "true",
+        "tot": "bool"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1230,
+    "y": 600,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "dfe1be2ba7684014",
+    "type": "change",
+    "z": "ff9b25b67ca95e0c",
+    "name": "false",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "false",
+        "tot": "bool"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1230,
+    "y": 660,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "f2261618b90c69f3",
+    "type": "subflow:ff9b25b67ca95e0c",
+    "z": "af2bdd7b.ecdb5",
+    "name": "",
+    "env": [
+      {
+        "name": "name",
+        "value": "set-friendly-name",
+        "type": "str"
+      }
+    ],
+    "x": 160,
+    "y": 1560,
+    "wires": [
+      [
+        "fe1a5d525d388102",
+        "60bd61408a9fa2d7"
+      ],
+      [
+        "7de60c85f79f39d6",
+        "fd93766fbd476f09"
+      ],
+      [
+        "fd4aa2680b146354"
+      ],
+      [
+        "86edca59a5876b3b",
+        "d5614d3a76fbc234"
+      ],
+      [
+        "8f78536cd21dc0a3"
+      ],
+      [
+        "3350465f9752b253"
+      ],
+      [
+        "b6870faa590bf16f"
+      ],
+      [
+        "b8eb86a09677cdc4"
+      ],
+      [
+        "befa2c2534b8d549",
+        "f4837b8a5bafda98"
+      ],
+      []
+    ]
+  }
+]
