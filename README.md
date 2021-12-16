@@ -5,7 +5,7 @@ Node-red subflow for zigbee [4-way switch TS004F](https://zigbee.blakadder.com/E
 <img src="https://zigbee.blakadder.com/assets/images/devices/Eardatek_ESW-4ZAA-CN.jpg" width="300">
 <img src="https://github.com/mklan/node-red-TS004F/blob/main/outputs.png" width="800">
 
-## install 
+## Install 
 
 In you node-red dashboard press `ctrl + i` and import `subflow.json`
 
