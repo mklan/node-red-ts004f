@@ -7,7 +7,7 @@ Node-red subflow for zigbee [4-way switch TS004F](https://zigbee.blakadder.com/E
 
 ## Install 
 
-In you node-red dashboard press `ctrl + i` and import `subflow.json`
+In your node-red dashboard press `ctrl + i` and import `subflow.json`
 
 ## Connect to Zigbee2Tasmota
 
