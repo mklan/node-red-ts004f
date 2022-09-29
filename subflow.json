@@ -33,20 +33,17 @@
     "type": "mqtt in",
     "z": "b763e7488afdf16e",
     "name": "",
-    "topic": "enter-your-mqtt-topic",
+    "topic": "tele/zigbee-bridge/SENSOR",
     "qos": "2",
     "datatype": "json",
     "broker": "78c65a9f.5234d4",
     "nl": false,
     "rap": true,
     "rh": 0,
+    "inputs": 0,
     "x": 240,
     "y": 140,
-    "wires": [
-      [
-        "6c01d1b2f576cdd9"
-      ]
-    ]
+    "wires": [["6c01d1b2f576cdd9"]]
   },
   {
     "id": "6c01d1b2f576cdd9",
@@ -61,31 +58,33 @@
     "libs": [],
     "x": 510,
     "y": 140,
-    "wires": [
-      []
-    ]
+    "wires": [[]]
   },
   {
     "id": "78c65a9f.5234d4",
     "type": "mqtt-broker",
-    "name": "",
-    "broker": "",
-    "port": "",
+    "name": "odroid-mqtt-broker",
+    "broker": "192.168.1.114",
+    "port": "1883",
     "clientid": "",
     "usetls": false,
     "compatmode": false,
-    "protocolVersion": 4,
+    "protocolVersion": "4",
     "keepalive": "60",
     "cleansession": true,
     "birthTopic": "",
     "birthQos": "0",
     "birthPayload": "",
+    "birthMsg": {},
     "closeTopic": "",
     "closeQos": "0",
     "closePayload": "",
+    "closeMsg": {},
     "willTopic": "",
     "willQos": "0",
-    "willPayload": ""
+    "willPayload": "",
+    "willMsg": {},
+    "sessionExpiry": ""
   },
   {
     "id": "ff9b25b67ca95e0c",
@@ -136,66 +135,48 @@
         ]
       },
       {
-        "x": 1000,
+        "x": 1210,
+        "y": 360,
+        "wires": [
+          {
+            "id": "e7609cb199f6baf7",
+            "port": 0
+          }
+        ]
+      },
+      {
+        "x": 1250,
         "y": 420,
         "wires": [
           {
-            "id": "ce728b638ad7b1d2",
-            "port": 4
+            "id": "499a90c2fe675477",
+            "port": 0
           }
         ]
       },
       {
-        "x": 1000,
+        "x": 1380,
         "y": 500,
         "wires": [
           {
-            "id": "ce728b638ad7b1d2",
-            "port": 5
+            "id": "dea78407ceef5386",
+            "port": 0
           }
         ]
       },
       {
-        "x": 1000,
+        "x": 1380,
         "y": 560,
         "wires": [
           {
-            "id": "ce728b638ad7b1d2",
-            "port": 6
+            "id": "dea78407ceef5386",
+            "port": 1
           }
         ]
       },
       {
-        "x": 1400,
-        "y": 500,
-        "wires": [
-          {
-            "id": "d90f6ea3b1d974b0",
-            "port": 0
-          },
-          {
-            "id": "6bb1ea7490ecb4e1",
-            "port": 0
-          }
-        ]
-      },
-      {
-        "x": 1400,
-        "y": 620,
-        "wires": [
-          {
-            "id": "0fb302ecb4884327",
-            "port": 0
-          },
-          {
-            "id": "dfe1be2ba7684014",
-            "port": 0
-          }
-        ]
-      },
-      {
-        "x": 1000,
-        "y": 740,
+        "x": 1190,
+        "y": 660,
         "wires": [
           {
             "id": "780fc5fe637bef85",
@@ -218,12 +199,11 @@
       "button2",
       "button3",
       "button4",
-      "button2 long press start",
-      "button4 long press start",
-      "button2 or 4 released after long press",
-      "button2 is pressing",
-      "button4 is pressing",
-      "debug-log"
+      "button2 hold",
+      "button4 hold",
+      "button2 release",
+      "button4 release",
+      "debug"
     ],
     "icon": "node-red-dashboard/ui_button.png"
   },
@@ -241,11 +221,7 @@
     ],
     "x": 380,
     "y": 380,
-    "wires": [
-      [
-        "ce728b638ad7b1d2"
-      ]
-    ]
+    "wires": [["ce728b638ad7b1d2"]]
   },
   {
     "id": "ce728b638ad7b1d2",
@@ -301,55 +277,80 @@
       [],
       [],
       [],
-      [
-        "d90f6ea3b1d974b0"
-      ],
-      [
-        "0fb302ecb4884327"
-      ],
-      [
-        "6bb1ea7490ecb4e1",
-        "dfe1be2ba7684014"
-      ]
+      ["e7609cb199f6baf7"],
+      ["499a90c2fe675477"],
+      ["0ceb16dda3bde084"]
     ]
   },
   {
-    "id": "d90f6ea3b1d974b0",
-    "type": "change",
+    "id": "dea78407ceef5386",
+    "type": "switch",
     "z": "ff9b25b67ca95e0c",
-    "name": "true",
+    "name": "",
+    "property": "payload.button",
+    "propertyType": "msg",
     "rules": [
       {
-        "t": "set",
-        "p": "payload",
-        "pt": "msg",
-        "to": "true",
-        "tot": "bool"
+        "t": "eq",
+        "v": "2",
+        "vt": "num"
+      },
+      {
+        "t": "eq",
+        "v": "4",
+        "vt": "num"
       }
     ],
-    "action": "",
-    "property": "",
-    "from": "",
-    "to": "",
-    "reg": false,
+    "checkall": "true",
+    "repair": false,
+    "outputs": 2,
     "x": 1230,
+    "y": 540,
+    "wires": [[], []]
+  },
+  {
+    "id": "fab3600b8812efa2",
+    "type": "join",
+    "z": "ff9b25b67ca95e0c",
+    "name": "",
+    "mode": "custom",
+    "build": "object",
+    "property": "payload",
+    "propertyType": "msg",
+    "key": "topic",
+    "joiner": "\\n",
+    "joinerType": "str",
+    "accumulate": false,
+    "timeout": "",
+    "count": "2",
+    "reduceRight": false,
+    "reduceExp": "",
+    "reduceInit": "",
+    "reduceInitType": "",
+    "reduceFixup": "",
+    "x": 1070,
     "y": 460,
-    "wires": [
-      []
-    ]
+    "wires": [["dea78407ceef5386"]]
   },
   {
-    "id": "6bb1ea7490ecb4e1",
+    "id": "e7609cb199f6baf7",
     "type": "change",
     "z": "ff9b25b67ca95e0c",
-    "name": "false",
+    "name": "",
     "rules": [
       {
         "t": "set",
         "p": "payload",
         "pt": "msg",
-        "to": "false",
-        "tot": "bool"
+        "to": "2",
+        "tot": "num"
+      },
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "button",
+        "tot": "str"
       }
     ],
     "action": "",
@@ -357,17 +358,45 @@
     "from": "",
     "to": "",
     "reg": false,
-    "x": 1230,
-    "y": 520,
-    "wires": [
-      []
-    ]
+    "x": 820,
+    "y": 380,
+    "wires": [["fab3600b8812efa2"]]
   },
   {
-    "id": "0fb302ecb4884327",
+    "id": "499a90c2fe675477",
     "type": "change",
     "z": "ff9b25b67ca95e0c",
-    "name": "true",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "4",
+        "tot": "num"
+      },
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "button",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 820,
+    "y": 420,
+    "wires": [["fab3600b8812efa2"]]
+  },
+  {
+    "id": "0ceb16dda3bde084",
+    "type": "change",
+    "z": "ff9b25b67ca95e0c",
+    "name": "",
     "rules": [
       {
         "t": "set",
@@ -375,31 +404,13 @@
         "pt": "msg",
         "to": "true",
         "tot": "bool"
-      }
-    ],
-    "action": "",
-    "property": "",
-    "from": "",
-    "to": "",
-    "reg": false,
-    "x": 1230,
-    "y": 600,
-    "wires": [
-      []
-    ]
-  },
-  {
-    "id": "dfe1be2ba7684014",
-    "type": "change",
-    "z": "ff9b25b67ca95e0c",
-    "name": "false",
-    "rules": [
+      },
       {
         "t": "set",
-        "p": "payload",
+        "p": "topic",
         "pt": "msg",
-        "to": "false",
-        "tot": "bool"
+        "to": "release",
+        "tot": "str"
       }
     ],
     "action": "",
@@ -407,59 +418,34 @@
     "from": "",
     "to": "",
     "reg": false,
-    "x": 1230,
-    "y": 660,
-    "wires": [
-      []
-    ]
+    "x": 820,
+    "y": 460,
+    "wires": [["fab3600b8812efa2"]]
   },
   {
-    "id": "f2261618b90c69f3",
+    "id": "40f17f264ae8e7dd",
     "type": "subflow:ff9b25b67ca95e0c",
     "z": "af2bdd7b.ecdb5",
     "name": "",
     "env": [
       {
         "name": "name",
-        "value": "set-friendly-name",
+        "value": "4way-switch-livingroom",
         "type": "str"
       }
     ],
-    "x": 160,
-    "y": 1560,
+    "x": 200,
+    "y": 1160,
     "wires": [
-      [
-        "fe1a5d525d388102",
-        "60bd61408a9fa2d7"
-      ],
-      [
-        "7de60c85f79f39d6",
-        "fd93766fbd476f09"
-      ],
-      [
-        "fd4aa2680b146354"
-      ],
-      [
-        "86edca59a5876b3b",
-        "d5614d3a76fbc234"
-      ],
-      [
-        "8f78536cd21dc0a3"
-      ],
-      [
-        "3350465f9752b253"
-      ],
-      [
-        "b6870faa590bf16f"
-      ],
-      [
-        "b8eb86a09677cdc4"
-      ],
-      [
-        "befa2c2534b8d549",
-        "f4837b8a5bafda98"
-      ],
-      []
+      ["f1ef1b2637252394"],
+      ["1410c49a4c5918f6"],
+      ["78a16876a47e1ed7"],
+      ["a49130518e7a1e0c"],
+      ["81bb2ccea32da43a"],
+      ["1d65c2a1322c6225"],
+      ["467c1c38564f4373"],
+      ["3042fdafdc66b846"],
+      ["f505dc0c6e66e845"]
     ]
   }
 ]
