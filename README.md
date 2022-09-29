@@ -2,11 +2,13 @@
 
 Node-red subflow for zigbee [4-way switch TS004F](https://zigbee.blakadder.com/Eardatek_ESW-4ZAA-CN.html). Works only with [Zigbee2Tasmota](https://tasmota.github.io/docs/Zigbee/)!
 
-![Outputs](https://github.com/mklan/node-red-TS004F/blob/main/outputs.jpg)
+<img src="https://zigbee.blakadder.com/assets/images/devices/Eardatek_ESW-4ZAA-CN.jpg" width="300">
+<img src="https://github.com/mklan/node-red-TS004F/blob/main/outputs.jpg" width="800">
 
-## install 
 
-In you node-red dashboard press `ctrl + i` and import `subflow.json`
+## Install 
+
+In your node-red dashboard press `ctrl + i` and import `subflow.json`
 
 ## Connect to Zigbee2Tasmota
 
